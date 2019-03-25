@@ -1,0 +1,1114 @@
+<!DOCTYPE HTML>
+<html lang="">
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Hexo">
+    <meta name="description" content="拼多多大数据开发工程师SQL实战解析不久前，裸考国内知名电商平台拼多多的大数据岗位在线笔试，问答题（写SQL）被虐的很惨，完了下来默默学习一波。顺便借此机会复习一下SQL语句的用法。
+本文主要涉及到的SQL知识点包括CREATE创建数据库和">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Hexo</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+</head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="container">
+            <div class="nav-wrapper">
+                <div class="brand-logo">
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <img src="/medias/logo.png" class="logo-img hide-on-small-only">
+                        
+                        <span class="logo-span">Hexo</span>
+                    </a>
+                </div>
+                
+
+<a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>Index</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>Tags</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>Categories</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>Archives</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>About</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>Friends</span>
+        </a>
+    </li>
+    
+    <li>
+        <a id="toggleSearch" class="waves-effect waves-light">
+            <i id="searchIcon" class="mdi-action-search" title="Search"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div class="side-nav" id="mobile-nav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Hexo</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                Index
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                Tags
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                Categories
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                Archives
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                About
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                Friends
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/shangguanhao" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+    <div class="social-link">
+    <a href="https://github.com/shangguanhao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:shangguanh@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1220560544" class="tooltipped" data-tooltip="QQ联系我: 1220560544" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+</div>
+
+            </div>
+        </div>
+
+        
+        <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/shangguanhao" class="github-corner tooltipped hide-on-med-and-down" target="_blank" data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewbox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/>
+    </svg>
+</a>
+        
+    </nav>
+</header>
+
+
+
+
+
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+</style>
+<div class="row">
+    <div class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">No tag</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>Publish Date:&nbsp;&nbsp;
+                    2019-03-25
+                </div>
+
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>Read Count:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="拼多多大数据开发工程师SQL实战解析"><a href="#拼多多大数据开发工程师SQL实战解析" class="headerlink" title="拼多多大数据开发工程师SQL实战解析"></a>拼多多大数据开发工程师SQL实战解析</h1><p>不久前，裸考国内知名电商平台拼多多的大数据岗位在线笔试，问答题（写SQL）被虐的很惨，完了下来默默学习一波。顺便借此机会复习一下SQL语句的用法。</p>
+<p>本文主要涉及到的SQL知识点包括<code>CREATE</code>创建数据库和表、<code>INSERT</code>插入数据、<code>SUM()</code>求和、<code>GROUP BY</code>分组、<code>DATE_FORMAT()</code>格式化日期、<code>ORDER BY</code>排序、<code>COUNT()</code>统计行数、添加排名、MySQL实现统计排名、并列排名等，如果你对这些操作还有点不熟练，那么相信你读完本文会有收获的，如果自己再实现一遍效果更好。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>根据笔试时遗留的线索，在本地MySQL创建数据库和表，为后续铺垫。</p>
+<ul>
+<li><h3 id="创建数据库和表"><a href="#创建数据库和表" class="headerlink" title="创建数据库和表"></a>创建数据库和表</h3></li>
+</ul>
+<p><code>CREATE DATABASE</code>语句用于创建数据库，基本语法如下：</p>
+<p><code>CREATE DATABASE database_name</code></p>
+<p>在本地创建一个名为test的测试数据库：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">test</span>;</span><br></pre></td></tr></table></figure>
+<p><code>CREATE TABLE</code>语句用于创建表，基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name(</span><br><span class="line">	column_name1 <span class="keyword">type</span>,</span><br><span class="line">	column_name2 <span class="keyword">type</span>,</span><br><span class="line">	column_name3 <span class="keyword">type</span>,</span><br><span class="line">	...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>在<code>test</code>数据库下面创建一张名为<code>orders</code>的表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> <span class="keyword">test</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> orders(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">	order_time <span class="built_in">TIMESTAMP</span>,</span><br><span class="line">	cate <span class="built_in">VARCHAR</span>(<span class="number">255</span>),</span><br><span class="line">	goods_id <span class="built_in">int</span>,</span><br><span class="line">	order_amount <span class="built_in">int</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3></li>
+</ul>
+<p><code>INSERT INTO</code> 语句用于向表格中插入新的行，基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> table_name <span class="keyword">VALUES</span> (value1, value2,....)</span><br></pre></td></tr></table></figure>
+<p>向<code>orders</code>表中插入一些测试数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> orders(order_time,cate,goods_id,order_amount) </span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'2018-02-28 00:00:01'</span>, <span class="string">'水果'</span>,<span class="number">223</span>,<span class="number">100</span>),</span><br><span class="line">(<span class="string">'2018-02-28 01:01:01'</span>, <span class="string">'花茶'</span>,<span class="number">444</span>,<span class="number">111</span>),</span><br><span class="line">(<span class="string">'2018-02-28 06:06:06'</span>, <span class="string">'花茶'</span>,<span class="number">444</span>,<span class="number">666</span>),</span><br><span class="line">(<span class="string">'2018-03-01 07:01:10'</span>, <span class="string">'花茶'</span>,<span class="number">5555</span>,<span class="number">170</span>),</span><br><span class="line">(<span class="string">'2018-03-01 08:00:00'</span>, <span class="string">'花茶'</span>,<span class="number">5555</span>,<span class="number">180</span>),</span><br><span class="line">(<span class="string">'2018-03-01 00:00:01'</span>, <span class="string">'花茶'</span>,<span class="number">333</span>,<span class="number">100</span>),</span><br><span class="line">(<span class="string">'2018-03-01 00:00:01'</span>, <span class="string">'花茶'</span>,<span class="number">444</span>,<span class="number">188</span>),</span><br><span class="line">(<span class="string">'2018-03-01 00:00:01'</span>, <span class="string">'数码'</span>,<span class="number">45454</span>,<span class="number">5399</span>)</span><br></pre></td></tr></table></figure>
+<p>结果如图所示：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1552996287587.png" alt="1552996287587"></p>
+<h2 id="题目解析"><a href="#题目解析" class="headerlink" title="题目解析"></a>题目解析</h2><ol>
+<li><h3 id="请统计2018年全年每月销售金额，按下表格式返回。"><a href="#请统计2018年全年每月销售金额，按下表格式返回。" class="headerlink" title="请统计2018年全年每月销售金额，按下表格式返回。"></a>请统计2018年全年每月销售金额，按下表格式返回。</h3></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>销售金额</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-01</td>
+<td><em>**</em></td>
+</tr>
+<tr>
+<td>2018-02</td>
+<td><em>**</em></td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>分析：统计每月的销售金额，需要用到求和函数<code>SUM()</code>。<code>SUM()</code>函数用于返回数值列的总和。基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(column_name) <span class="keyword">FROM</span> table_name</span><br></pre></td></tr></table></figure>
+<p>求和通常需要用到<code>GROUP BY</code>，<code>GROUP BY</code>可以根据一个或多个列对结果集进行分组，本题也是这个套路，需要根据月份进行分组统计。<code>GROUP BY</code>的基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name <span class="keyword">operator</span> <span class="keyword">value</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> column_name</span><br></pre></td></tr></table></figure>
+<p>当然本题还有其他附加要求，按照规定形式返回，需要对日期进行进行格式化处理。DATE_FORMAT() 函数用于以不同的格式显示日期/时间数据，基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DATE_FORMAT(date,format)</span><br></pre></td></tr></table></figure>
+<p><em>date</em> 参数是合法的日期。<em>format</em> 规定日期/时间的输出格式。可以使用的格式有：</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%a</td>
+<td>缩写星期名</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>缩写月名</td>
+</tr>
+<tr>
+<td>%c</td>
+<td>月，数值</td>
+</tr>
+<tr>
+<td>%D</td>
+<td>带有英文前缀的月中的天</td>
+</tr>
+<tr>
+<td>%d</td>
+<td>月的天，数值(00-31)</td>
+</tr>
+<tr>
+<td>%e</td>
+<td>月的天，数值(0-31)</td>
+</tr>
+<tr>
+<td>%f</td>
+<td>微秒</td>
+</tr>
+<tr>
+<td>%H</td>
+<td>小时 (00-23)</td>
+</tr>
+<tr>
+<td>%h</td>
+<td>小时 (01-12)</td>
+</tr>
+<tr>
+<td>%I</td>
+<td>小时 (01-12)</td>
+</tr>
+<tr>
+<td>%i</td>
+<td>分钟，数值(00-59)</td>
+</tr>
+<tr>
+<td>%j</td>
+<td>年的天 (001-366)</td>
+</tr>
+<tr>
+<td>%k</td>
+<td>小时 (0-23)</td>
+</tr>
+<tr>
+<td>%l</td>
+<td>小时 (1-12)</td>
+</tr>
+<tr>
+<td>%M</td>
+<td>月名</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>月，数值(00-12)</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>AM 或 PM</td>
+</tr>
+<tr>
+<td>%r</td>
+<td>时间，12-小时（hh:mm:ss AM 或 PM）</td>
+</tr>
+<tr>
+<td>%S</td>
+<td>秒(00-59)</td>
+</tr>
+<tr>
+<td>%s</td>
+<td>秒(00-59)</td>
+</tr>
+<tr>
+<td>%T</td>
+<td>时间, 24-小时 (hh:mm:ss)</td>
+</tr>
+<tr>
+<td>%U</td>
+<td>周 (00-53) 星期日是一周的第一天</td>
+</tr>
+<tr>
+<td>%u</td>
+<td>周 (00-53) 星期一是一周的第一天</td>
+</tr>
+<tr>
+<td>%V</td>
+<td>周 (01-53) 星期日是一周的第一天，与 %X 使用</td>
+</tr>
+<tr>
+<td>%v</td>
+<td>周 (01-53) 星期一是一周的第一天，与 %x 使用</td>
+</tr>
+<tr>
+<td>%W</td>
+<td>星期名</td>
+</tr>
+<tr>
+<td>%w</td>
+<td>周的天 （0=星期日, 6=星期六）</td>
+</tr>
+<tr>
+<td>%X</td>
+<td>年，其中的星期日是周的第一天，4 位，与 %V 使用</td>
+</tr>
+<tr>
+<td>%x</td>
+<td>年，其中的星期一是周的第一天，4 位，与 %v 使用</td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>年，4 位</td>
+</tr>
+<tr>
+<td>%y</td>
+<td>年，2 位</td>
+</tr>
+</tbody>
+</table>
+<p>本题中的形式可以用<code>DATE_FORMAT(t.order_time,&#39;%Y-%m&#39;)</code>把时间格式化成表格中的形式（年份-月份），然后按照题目要求的别名返回即可。</p>
+<p>这题比较简单，分析了这么多，可以直接写SQL语句了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DATE_FORMAT</span>(t.order_time,<span class="string">'%Y-%m'</span>) <span class="keyword">AS</span> <span class="string">'日期'</span>, <span class="keyword">SUM</span>(t.order_amount) <span class="keyword">AS</span> <span class="string">'销售金额'</span></span><br><span class="line"><span class="keyword">FROM</span> orders t</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(t.order_time) = <span class="number">2018</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">MONTH</span>(t.order_time)</span><br></pre></td></tr></table></figure>
+<p>执行结果正确，如图：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1552997747196.png" alt="1552997747196"></p>
+<ol start="2">
+<li><h3 id="请统计2018年每月销售金额，以及金额排名。"><a href="#请统计2018年每月销售金额，以及金额排名。" class="headerlink" title="请统计2018年每月销售金额，以及金额排名。"></a>请统计2018年每月销售金额，以及金额排名。</h3></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>销售金额</th>
+<th>金额排名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2018-01</td>
+<td><em>**</em></td>
+<td>2</td>
+</tr>
+<tr>
+<td>2018-02</td>
+<td><em>**</em></td>
+<td>3</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>2018-12</td>
+<td><em>**</em></td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>这个题是要求销售金额的排名情况，求这个月的销售额在这一年的12月中排第几，需要得到具体排第几名。比如说2018年1月的销售金额在12个月中排第2名。<font color="red">不是用<code>ORDER BY</code>粗暴的进行排序完事！不是用<code>ORDER BY</code>粗暴的进行排序完事！不是用<code>ORDER BY</code>粗暴的进行排序完事！</font>这个是我理解的题意。</p>
+<p>对于这个问题，我刚开始也是比较懵逼的，没有思路。感觉这道题还有点东西哈。网上搜索了一下，没有找到和我这个需求一模一样的，看了一些相似的博客，然后从这些博客中找到了解答本题的思路。</p>
+<p>在这过程中我也尝试着在某个技术交流群里面请教了一下各位技术大佬，有说用<code>ORDER BY</code>就好了的，有说用<code>LIMIT</code>的，还有的说问这么傻的问题。。。如果一个<code>ORDER BY</code>就可以轻易解答这个问题，我特么用得着来群里问你们？只好留下一句”我们的<code>ORDER BY</code>好像不是太一样，打扰了“，然后默默离开，没有失望，也没有愤怒。</p>
+<p>因为我多年前早也经习惯了，习惯了大多数时候在群里面请教问题，不仅得不到满意的解答，反而会遭到各种冷嘲热讽。我也常常在反思这个问题，别人的问题难倒真的没有一丝价值吗？难倒我们真的是别人口中所说的“技术大佬”，别人的难题对于自己来说都不算是问题吗？有些时候，看到一些交流群里的问题，貌似很简单，但是有时候做起来还真的不好做；就像面试的时候手撕个很简单的算法（比如快速排序、堆排序），很难保证“一次编写，到处正确运行”。所以，面对别人的问题，我都告诉自己要认真对待。因为大多数人是在自己解决不了的时候才会把问题抛出来，没有谁天生喜欢厚着脸皮去求人解答，这往往是更有价值的问题，是有助于提高自己的问题。哎，好像扯得有点远了。下面继续说这个问题。</p>
+<p>看了看网上相似的问题，结合自己的分析，我觉得这道题完全可以解答出来，即使我使用的是MySQL数据库（MySQL数据库不能使用<code>rank()</code>函数）。这个问题可以分三个步骤解决：</p>
+<ol>
+<li><strong>在第（1）问的基础上按照销售金额进行排序；</strong>要求排名，当然先要按销售金额排序。</li>
+</ol>
+<p><code>ORDER BY</code> 用于对结果集按照一个列或者多个列进行排序。基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> column_name,column_name</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column_name,column_name <span class="keyword">ASC</span>|<span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+<p>对金额进行排序（降序需要加上<code>DESC</code>关键字）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT DATE_FORMAT(t.order_time,&apos;%Y-%m&apos;) AS mon, SUM(t.order_amount) AS sum</span><br><span class="line">FROM orders t</span><br><span class="line">WHERE YEAR(t.order_time) = 2018</span><br><span class="line">GROUP BY MONTH(t.order_time)</span><br><span class="line">ORDER BY SUM(t.order_amount) DESC</span><br></pre></td></tr></table></figure>
+<p>为了排序和之后的效果显示，我又在表格中插入了2018年4月的记录。排序之后的结果如图所示：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553219971402.png" alt="1553219971402"></p>
+<ol start="2">
+<li><strong>对排序的结果添加一个排名列；</strong>其实就是在上图结果后面添加一个排名字段。这里自定义一个排名变量rank，初始化为0，由于数据已经是排好序的，所以每次加1就是排名，从而实现一个取得排序后名次的效果。</li>
+</ol>
+<p>在MySQL中声明一个变量，需要在变量名之前使用<code>@</code>符号。FROM子句中的<code>(@rank:= 0)</code>部分可以进行变量初始化，而不需要单独的<code>SET</code>命令。更多关于MySQL自定义变量可以参考<a href="https://www.cnblogs.com/guaidaodark/p/6037040.html" target="_blank" rel="noopener">Mysql自定义变量的使用</a>和<a href="https://dev.mysql.com/doc/refman/8.0/en/user-variables.html" target="_blank" rel="noopener">MySQL官网文档用户自定义变量</a>。</p>
+<p>例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> (@<span class="keyword">rank</span> := @<span class="keyword">rank</span>+<span class="number">1</span>) <span class="keyword">AS</span> <span class="keyword">rank</span> <span class="keyword">FROM</span> (</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> table_name</span><br><span class="line">) a,(<span class="keyword">SELECT</span> @<span class="keyword">rank</span> :=<span class="number">0</span>) b</span><br></pre></td></tr></table></figure>
+<p>对本题中的销售金额进行排序后添加排名列的SQL语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.mon <span class="keyword">AS</span> r,a.sum <span class="keyword">AS</span> x,@<span class="keyword">rank</span> :=@<span class="keyword">rank</span> + <span class="number">1</span> <span class="keyword">AS</span> j</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">(<span class="keyword">SELECT</span> <span class="keyword">DATE_FORMAT</span>(t.order_time,<span class="string">'%Y-%m'</span>) <span class="keyword">AS</span> mon, <span class="keyword">SUM</span>(t.order_amount) <span class="keyword">AS</span> <span class="keyword">sum</span></span><br><span class="line"><span class="keyword">FROM</span> orders t</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(t.order_time) = <span class="number">2018</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">MONTH</span>(t.order_time)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">SUM</span>(t.order_amount) <span class="keyword">DESC</span>) a,(<span class="keyword">SELECT</span> @<span class="keyword">rank</span> := <span class="number">0</span>) b</span><br></pre></td></tr></table></figure>
+<p>执行结果如图：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553234696223.png" alt="1553234696223"></p>
+<p>这样就实现了简单的rank排名函数，也基本满足了题意。但是这样写还有一个问题需要注意，遇到销售金额相等的情况，名次也会加1。如果向表中再插入一条记录2018年5月的记录，使得5月份的销售金额和2月份相等：<code>INSERT INTO orders(order_time,cate,goods_id,order_amount) 
+VALUES (&#39;2018-05-22 13:23:39&#39;, &#39;果粒橙&#39;,111,877)</code>，再去执行刚才的查询操作，结果如图：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553239655488.png" alt="1553239655488"></p>
+<p>可以看见图中2018年2月和2018年5月的销售额都是877，2月排第2，5月排第3。这样排名貌似不合理吧？</p>
+<p>还有更神奇的呢！再次执行相同的操作，结果却不相同。what？这次5月排第2，2月排第3了？什么情况？关于<code>ORDER BY</code>排序以后顺序为什么随机，我需要再好好研究一下MySQL底层原理。所以这个问题先留着。</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553240219395.png" alt="1553240219395"></p>
+<p>如果是面试的话，在上面排名情况这个细节问题上就需要和面试官进行交流了，销售金额会不会有相等的情况？如果有相等的情况，遇到名次并列情况怎么办？如果说第1名有1个，第2名有两个并列，那么接下来的排名是第3名还是第4名呢？</p>
+<p>接下来实现并列排名。如果题目要求相同数据并列排名，求排名的时候，需要拿前一个排名的数据来对比从而判断排名是否进行加1操作。SQL层面则需要自定义两个变量，一个记录之前排名的数据，一个记录现在的排名。如果之前排名的数据等于需要排名的数据，那么就是并列，排名不变。如果不相等，排名加1。也许我描述的不够清楚，看看SQL语句估计就明白了：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> a.mon <span class="keyword">AS</span> r,a.sum <span class="keyword">AS</span> x,</span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> @prevRank = a.sum <span class="keyword">THEN</span> @curRank </span><br><span class="line"><span class="keyword">WHEN</span> @prevRank := a.sum <span class="keyword">THEN</span> @curRank := @curRank + <span class="number">1</span></span><br><span class="line"><span class="keyword">END</span> <span class="keyword">AS</span> j</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">(<span class="keyword">SELECT</span> <span class="keyword">DATE_FORMAT</span>(t.order_time,<span class="string">'%Y-%m'</span>) <span class="keyword">AS</span> mon, <span class="keyword">SUM</span>(t.order_amount) <span class="keyword">AS</span> <span class="keyword">sum</span></span><br><span class="line"><span class="keyword">FROM</span> orders t</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(t.order_time) = <span class="number">2018</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">MONTH</span>(t.order_time)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">SUM</span>(t.order_amount) <span class="keyword">DESC</span>) a,(<span class="keyword">SELECT</span> @curRank :=<span class="number">0</span>, @prevRank := <span class="literal">NULL</span>) b</span><br></pre></td></tr></table></figure>
+<p>执行上述语句，2月和5月排名实现了并列，如图：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553246670285.png" alt="1553246670285"></p>
+<p>上面实现了普通并列排名，如果想实现高级并列排名（使上图中2018年4月数据排第4），需要定义3个变量，写起来有点复杂，这里先不写了。关于高级并列排名可以参考：<a href="https://www.cnblogs.com/sgh1023/p/10578271.html" target="_blank" rel="noopener">在MySQL中实现Rank高级排名函数</a>。</p>
+<ol start="3">
+<li><strong>在第二步的基础上按照月份排序，完成。</strong></li>
+</ol>
+<p>经过了上面的步骤，离目标仅有一步之遥：按月份排序，还有替换别名。第二步的结果当成一张表，新建一个查询，对其进行月份排列，并把列名替换成为最终题目需要的列名即可。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> tt.r <span class="keyword">AS</span> <span class="string">'日期'</span>,tt.x <span class="keyword">AS</span> <span class="string">'销售金额'</span>,tt.j <span class="keyword">AS</span> <span class="string">'金额排名'</span> </span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">(<span class="keyword">SELECT</span> a.mon <span class="keyword">AS</span> r,a.sum <span class="keyword">AS</span> x,</span><br><span class="line"><span class="keyword">CASE</span> </span><br><span class="line"><span class="keyword">WHEN</span> @prevRank = a.sum <span class="keyword">THEN</span> @curRank </span><br><span class="line"><span class="keyword">WHEN</span> @prevRank := a.sum <span class="keyword">THEN</span> @curRank := @curRank + <span class="number">1</span></span><br><span class="line"><span class="keyword">END</span> <span class="keyword">AS</span> j</span><br><span class="line"><span class="keyword">FROM</span> </span><br><span class="line">(<span class="keyword">SELECT</span> <span class="keyword">DATE_FORMAT</span>(t.order_time,<span class="string">'%Y-%m'</span>) <span class="keyword">AS</span> mon, <span class="keyword">SUM</span>(t.order_amount) <span class="keyword">AS</span> <span class="keyword">sum</span></span><br><span class="line"><span class="keyword">FROM</span> orders t</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">YEAR</span>(t.order_time) = <span class="number">2018</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">MONTH</span>(t.order_time)</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">SUM</span>(t.order_amount) <span class="keyword">DESC</span>) a,(<span class="keyword">SELECT</span> @curRank :=<span class="number">0</span>, @prevRank := <span class="literal">NULL</span>) b) tt</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> tt.r</span><br></pre></td></tr></table></figure>
+<p>结果如我所愿：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553251835465.png" alt="1553251835465"></p>
+<ol start="3">
+<li><h3 id="请用SQL选出2018年2月每个类目销量最高的2个爆款商品以及排名先后。"><a href="#请用SQL选出2018年2月每个类目销量最高的2个爆款商品以及排名先后。" class="headerlink" title="请用SQL选出2018年2月每个类目销量最高的2个爆款商品以及排名先后。"></a>请用SQL选出2018年2月每个类目销量最高的2个爆款商品以及排名先后。</h3></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>类目</th>
+<th>商品id</th>
+<th>排名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>水果</td>
+<td>223</td>
+<td>1</td>
+</tr>
+<tr>
+<td>花茶</td>
+<td>444</td>
+<td>1</td>
+</tr>
+<tr>
+<td>花茶</td>
+<td>5555</td>
+<td>2</td>
+</tr>
+<tr>
+<td>数码</td>
+<td>45454</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>这个问题是考察分组排名的问题：按照商品类目进行分组，按<code>goods_id</code>统计行数作为销量，找出每个商品种类销量前2名的<code>goods_id</code>，并给出排名。如果已经完全理解了第2问的使用自定义变量来实现添加排名操作，这一问做起来会轻松许多。</p>
+<p>销量怎么计算？题目中没有明确说明，我理解的销量应该是表中的记录行数。统计记录行数需要使用<code>COUNT()</code>函数，基本语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(column_name) <span class="keyword">FROM</span> table_name</span><br></pre></td></tr></table></figure>
+<p> 这个问题也可以分三个步骤解决：</p>
+<ol>
+<li><strong>统计出来每种商品的销量，并按照类目、销量进行排序</strong>；这里由于表中的数据库记录较少，所以我直接统计的是2018年全年的数据，其实道理是一样的。SQL语句如下：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	a.cate,a.goods_id,a.count</span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">(</span><br><span class="line">		<span class="keyword">SELECT</span> t.cate,t.goods_id,<span class="keyword">count</span>(goods_id) <span class="keyword">AS</span> <span class="keyword">count</span></span><br><span class="line">		<span class="keyword">FROM</span> orders t</span><br><span class="line">		<span class="keyword">WHERE</span> <span class="keyword">date_format</span>(t.order_time, <span class="string">'%Y%m%d%H%i%s'</span>)<span class="keyword">LIKE</span> <span class="string">"2018%"</span></span><br><span class="line">		<span class="keyword">GROUP</span> <span class="keyword">BY</span> t.goods_id</span><br><span class="line">		<span class="keyword">ORDER</span> <span class="keyword">BY</span> t.cate,<span class="keyword">count</span>(t.goods_id) <span class="keyword">DESC</span></span><br><span class="line">) <span class="keyword">AS</span> a</span><br></pre></td></tr></table></figure>
+<p>执行结果如图：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553332728304.png" alt="1553332728304"></p>
+<ol start="2">
+<li><strong>使用自定义变量为排序结果添加排名</strong>。原理和用法与上一个问题是一样的，这里不赘述了。SQL语句如下：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	a.cate,a.goods_id,a.count,</span><br><span class="line">	@<span class="keyword">rank</span>:= <span class="keyword">CASE</span> <span class="keyword">WHEN</span> @prevCate=a.cate <span class="keyword">THEN</span> @<span class="keyword">rank</span>+<span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">1</span> <span class="keyword">END</span> <span class="keyword">AS</span> rankNO,</span><br><span class="line">	@prevCate:=a.cate <span class="keyword">AS</span> <span class="keyword">type</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">(</span><br><span class="line">		<span class="keyword">SELECT</span> t.cate,t.goods_id,<span class="keyword">count</span>(goods_id) <span class="keyword">AS</span> <span class="keyword">count</span></span><br><span class="line">		<span class="keyword">FROM</span> orders t</span><br><span class="line">		<span class="keyword">WHERE</span> <span class="keyword">date_format</span>(t.order_time, <span class="string">'%Y%m%d%H%i%s'</span>)<span class="keyword">LIKE</span> <span class="string">"2018%"</span></span><br><span class="line">		<span class="keyword">GROUP</span> <span class="keyword">BY</span> t.goods_id</span><br><span class="line">		<span class="keyword">ORDER</span> <span class="keyword">BY</span> t.cate,<span class="keyword">count</span>(t.goods_id) <span class="keyword">DESC</span></span><br><span class="line">) <span class="keyword">AS</span> a,(<span class="keyword">SELECT</span> @<span class="keyword">rank</span>:=<span class="number">0</span> ,@prevCate:=<span class="string">''</span>) b</span><br></pre></td></tr></table></figure>
+<p>执行结果如图：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553333031849.png" alt="1553333031849"></p>
+<ol start="3">
+<li><strong>根据<code>rankNO</code>筛选前2名并按照题目要求格式返回</strong>；由于前面的铺垫，只需要用<code>WHERE</code>对<code>rankNO</code>进行筛选。SQL语句如下：</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> t.cate <span class="keyword">AS</span> <span class="string">'类目'</span>,t.goods_id <span class="keyword">AS</span> <span class="string">'商品id'</span>,t.rankNO <span class="keyword">AS</span> <span class="string">'排名'</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">(<span class="keyword">SELECT</span></span><br><span class="line">	a.cate,a.goods_id,a.count,</span><br><span class="line">	@<span class="keyword">rank</span>:= <span class="keyword">CASE</span> <span class="keyword">WHEN</span> @prevCate=a.cate <span class="keyword">THEN</span> @<span class="keyword">rank</span>+<span class="number">1</span> <span class="keyword">ELSE</span> <span class="number">1</span> <span class="keyword">END</span> <span class="keyword">AS</span> rankNO,</span><br><span class="line">	@prevCate:=a.cate <span class="keyword">AS</span> <span class="keyword">type</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">(</span><br><span class="line">		<span class="keyword">SELECT</span> t.cate,t.goods_id,<span class="keyword">count</span>(goods_id) <span class="keyword">AS</span> <span class="keyword">count</span></span><br><span class="line">		<span class="keyword">FROM</span> orders t</span><br><span class="line">		<span class="keyword">WHERE</span> <span class="keyword">date_format</span>(t.order_time, <span class="string">'%Y%m%d%H%i%s'</span>)<span class="keyword">LIKE</span> <span class="string">"2018%"</span></span><br><span class="line">		<span class="keyword">GROUP</span> <span class="keyword">BY</span> t.goods_id</span><br><span class="line">		<span class="keyword">ORDER</span> <span class="keyword">BY</span> t.cate,<span class="keyword">count</span>(t.goods_id) <span class="keyword">DESC</span></span><br><span class="line">) <span class="keyword">AS</span> a,(<span class="keyword">SELECT</span> @<span class="keyword">rank</span>:=<span class="number">0</span> ,@prevCate:=<span class="string">''</span>) b) t</span><br><span class="line"><span class="keyword">WHERE</span> t.rankNO &lt;= <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>执行结果和要求一模一样：</p>
+<p><img src="C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1553333435418.png" alt="1553333435418"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>笔试已凉，但是学习之路没有终点。经过几天的学习和调试，终于解决了这个SQL语句的问题，也算是了却了一桩心事。</p>
+<p>本文仅根据题目要求实现了基本功能，关于性能方面的问题还没有考虑。在大数据量的情况下这么写是否还可以接受呢？应该怎么优化？<code>ORDEY BY</code>排序以后相同数据顺序随机究竟和底层索引之间有怎么的联系？由于水平有限，这些问题我还需要再好好研究一番，也希望各位可以多指教。</p>
+
+            </div>
+            <hr>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff;
+        background-color: #22AB38;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff;
+        background-color: #019FE8;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a class="reward-link btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs">
+                        <li class="tab wechat-tab waves-effect waves-light"><a class="active" href="#wechat">微信</a></li>
+                        <li class="tab alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                    </ul>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#reward .reward-link').on('click', function () {
+            $('#rewardModal').openModal();
+        });
+
+        $('#rewardModal .close').on('click', function () {
+            $('#rewardModal').closeModal();
+        });
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone, qq, weibo, douban"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            <div class="reprint">
+                <p>
+                    <span class="reprint-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;Reprint please specify:
+                    </span>
+                    <a href="http://yoursite.com" class="b-link-green">Hexo</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2019/03/25/拼多多大数据开发工程师笔试SQL题解析/" class="b-link-green"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-dot-circle-o"></i>&nbsp;Current
+            </div>
+            <div class="card">
+                <a href="/2019/03/25/拼多多大数据开发工程师笔试SQL题解析/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt>
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">拼多多大数据开发工程师SQL实战解析不久前，裸考国内知名电商平台拼多多的大数据岗位在线笔试，问答题（写SQL）被虐的很惨，完了下来默默学习一波。顺便借此机会复习一下SQL语句的用法。
+本文主要涉及到的SQL知识点包括CREATE创建数据库和</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-user fa-fw"></i>
+                            James Shangguan
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                Next&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/03/15/hello-world/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        
+                        <span class="card-title">Hello World</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary">Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex</div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-03-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-user fa-fw"></i>
+                            James Shangguan
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+    </div>
+    <div class="col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;TOC</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/shangguanhao" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:shangguanh@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1220560544" class="tooltipped" data-tooltip="QQ联系我: 1220560544" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;Search</span>
+            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword" class="search-input" autofocus>
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/js/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
